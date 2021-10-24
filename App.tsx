@@ -5,6 +5,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeScreen from './screens/Home';
 import DetailsScreen from './screens/Details';
+import { Provider } from "react-redux";
+import store from './redux/store';
 
 const homeOpts = {
   headerTintColor: 'white',
@@ -60,12 +62,14 @@ const Tab = createBottomTabNavigator();
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <Tab.Navigator screenOptions={{ headerShown: false }}>
-        <Tab.Screen name="Home" component={HomeStackScreen} />
-        <Tab.Screen name="Create" component={()=><View><Text>{"Create"}</Text></View>} />
-        <Tab.Screen name="Profile" component={()=><View><Text>{"Profile"}</Text></View>} />
-      </Tab.Navigator>
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <Tab.Navigator screenOptions={{ headerShown: false }}>
+          <Tab.Screen name="Home" component={HomeStackScreen} />
+          <Tab.Screen name="Create" component={()=><View><Text>{"Create"}</Text></View>} />
+          <Tab.Screen name="Profile" component={()=><View><Text>{"Profile"}</Text></View>} />
+        </Tab.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
 }
