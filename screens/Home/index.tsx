@@ -1,79 +1,115 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Button,
   Dimensions,
   FlatList,
+  Image,
   StyleSheet,
   Text,
   View,
 } from 'react-native';
 import {getData} from '../../network/network';
 import Carousel from "pinar";
+import { getRandomColor } from '../../utils';
+import FilterData from '../../model/Filter';
+import Filter from '../../components/Filter';
 
 const HomeScreen = ({navigation}: any) => {
+  const FILTERS: FilterData[] = [new FilterData(1,"Creations"),new FilterData(2,"MasterClasses"),new FilterData(3,"Jobs"),]
+  const [activeFilter, setActiveFilter] = useState<FilterData>(FILTERS[0]);
+
   const numColumns = 2;
   const size = Dimensions.get('window').width / numColumns;
+  const BORDER_RADIUS = 10;
+  const BORDER_RADIUS_FILTER = 20;
   const styles = StyleSheet.create({
     itemContainer: {
-      width: size,
-      height: size,
+      width: "48%",
+      height: size + 60,
+      marginBottom:15
     },
     item: {
-      flex: 1,
-      margin: 3,
-      backgroundColor: 'lightblue',
+      backgroundColor: 'transparent',
     },
     slide1: {
       flex: 1,
+      borderRadius:BORDER_RADIUS,
+      overflow:"hidden",
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: '#a3c9a8',
+      backgroundColor: 'transparent',
     },
-    slide2: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: '#84b59f',
-    },
-    slide3: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: '#69a297',
-    },
-    text: {
-      color: '#1f2d3d',
-      opacity: 0.7,
-      fontSize: 48,
-      fontWeight: 'bold',
-    },
+    container:{
+      marginRight:10, marginLeft:10
+    }
   });
 
   return (
-    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <View style={{flex:1}}>
-        <Carousel showsControls={false} >
-          <View style={styles.slide1}>
-            <Text style={styles.text}>1</Text>
-          </View>
-          <View style={styles.slide2}>
-            <Text style={styles.text}>2</Text>
-          </View>
-          <View style={styles.slide3}>
-            <Text style={styles.text}>3</Text>
-          </View>
+    <View style={{flex: 1}}>
+      <View style={[{flex:1, flexDirection:"row", justifyContent:"flex-start", alignItems:"center"},styles.container]}>
+      {
+        FILTERS.map(filter => {
+          return(
+            <Filter key={filter.id} title={filter.title} onPress={()=>setActiveFilter(filter)} isActive={activeFilter?.id===filter?.id} containerStyle={{marginRight:10}}/>
+          )
+        })
+      }
+      </View>
+      
+      <View style={[{flex:2}]}>
+        <Carousel showsControls={false} loop={true} 
+        activeDotStyle={{
+          backgroundColor: "white",
+          width: 8,
+          height: 8,
+          marginLeft: 3,
+          marginRight: 3,
+          marginTop: 3,
+          marginBottom: 3,
+          borderRadius:4
+        }}
+        dotStyle={{
+          backgroundColor: "rgba(255,255,255,.2)",
+          width: 8,
+          height: 8,
+          marginLeft: 3,
+          marginRight: 3,
+          marginTop: 3,
+          marginBottom: 3,
+          borderRadius:4
+        }}>
+          {[1,2,3,4].map(i => {
+            return(
+              <View style={[styles.slide1,styles.container]}>
+                <Image 
+                style={{width:"100%",height:"100%",borderRadius:BORDER_RADIUS,
+                overflow:"hidden"}}
+                source={{uri:"https://d3566jsyo19arr.cloudfront.net/banner/marco_mueller_banner.jpg"}}/>
+              </View>
+            )
+          })}
         </Carousel>
       </View>
 
-      <View style={{flex:1}}>
+      <View style={[{flex:4, marginTop:20},styles.container]}>
+        <Text style={{fontWeight:"bold",fontSize:23}}>Creations for you</Text>
         <FlatList
-          data={getData()}
-          renderItem={({item}) => (
-            <View style={styles.itemContainer}>
-              <Text style={styles.item}>{item.title}</Text>
+            columnWrapperStyle={{justifyContent: 'space-between'}}
+        style={{marginTop:20,display:"flex"}}
+          data={getData().filter(d => d.category_id===activeFilter?.id)}
+          renderItem={({item, index}) => (
+            <View style={[styles.itemContainer]}>
+              <Image source={{uri:item.img_url}}
+              style={{width:"100%",height:"75%",borderRadius:BORDER_RADIUS,
+              overflow:"hidden"}}/>
+              <View>
+                <Text style={{fontSize:16,fontWeight:"600", marginTop:8}}>{item.title}</Text>
+                <Text style={{fontSize:14,marginTop:10}}>{"Story Author"}</Text>
+              </View>
+              
             </View>
           )}
-          keyExtractor={item => item.id}
+          keyExtractor={item => `${item.id}`}
           numColumns={numColumns}
         />
       </View>

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button, Text, View } from 'react-native';
+import { Button, Image, Text, TouchableOpacity, View } from 'react-native';
 import { NavigationContainer, useNavigationContainerRef } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -10,21 +10,35 @@ import store from './redux/store';
 
 const homeOpts = {
   headerTintColor: 'white',
-  headerStyle: { backgroundColor: 'tomato' },
-  headerTitle: (props:any) => <Text>{"LOGO"}</Text>,
+  headerStyle: { backgroundColor: 'transparent' },
+  headerTitle: (props:any) =>  <View style={{display:"flex",alignItems:"center", width:"70%"}}>
+    <Image 
+  style={{width:"100%",height:40}}
+  resizeMode={"contain"}
+  source={require("./assets/images/gronda_web_logo_medium_caribbean.png")} 
+  // height={25} width={25}
+  />
+  </View>
+  ,
   headerRight: () => (
-    <Button
-      onPress={() => console.log('This is a button!')}
-      title="IC_Notifiche"
-      color="#fff"
-    />
+    <TouchableOpacity
+      onPress={() => console.log('TODO:This is a button!')}
+     >
+       <Image 
+       style={{width:25,height:25}}
+       source={require("./assets/images/message.png")} 
+       height={25} width={25}/>
+       </TouchableOpacity>
   ),
   headerLeft: () => (
-    <Button
-      onPress={() => console.log('This is a button!')}
-      title="IC_Search"
-      color="#fff"
-    />
+    <TouchableOpacity
+      onPress={() => console.log('TODO:This is a button!')}
+     >
+       <Image 
+       style={{width:25,height:25}}
+       source={require("./assets/images/search.png")} 
+       height={25} width={25}/>
+       </TouchableOpacity>
   ),
 }
 const detailsOpts = (navigation:any) =>  {

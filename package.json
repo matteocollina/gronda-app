@@ -10,6 +10,7 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
+    "@ja-ka/react-native-fade-in-flatlist": "^1.0.7",
     "@react-navigation/bottom-tabs": "^6.0.9",
     "@react-navigation/native": "^6.0.6",
     "@react-navigation/native-stack": "^6.2.5",
@@ -18,6 +19,8 @@
     "pinar": "^0.12.1",
     "react": "17.0.2",
     "react-native": "0.66.1",
+    "react-native-animated-flatlist": "0.0.3",
+    "react-native-codegen": "0.0.9",
     "react-native-safe-area-context": "^3.3.2",
     "react-native-screens": "^3.8.0",
     "react-redux": "^7.2.5",
