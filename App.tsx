@@ -16,7 +16,6 @@ const homeOpts = {
   style={{width:"100%",height:40}}
   resizeMode={"contain"}
   source={require("./assets/images/gronda_web_logo_medium_caribbean.png")} 
-  // height={25} width={25}
   />
   </View>
   ,
@@ -88,8 +87,31 @@ export default function App() {
         }}
       ref={navigationRef}
       >
-        <Tab.Navigator screenOptions={{ headerShown: false }}>
-          <Tab.Screen name="Home" component={HomeStackScreen} />
+        <Tab.Navigator 
+        
+        screenOptions={({ route }) => ({
+          tabBarIcon: ({ focused, color, size }) => {
+            let iconName;
+
+            if (route.name === 'Home') {
+              iconName = focused
+                ? require('./assets/images/Homeselected.png')
+                : require('./assets/images/Homeselected.png');
+            } else if (route.name === 'Create') {
+              iconName = focused ? require('./assets/images/createbutton.png') : require('./assets/images/createbutton.png');
+            } else if (route.name === 'Profile') {
+              iconName = focused ? require('./assets/images/profile-06.png') : require('./assets/images/profile-06.png');
+            }
+
+            // You can return any component that you like here!
+            return <Image style={{width:25,height:25}} source={iconName}/>;
+          },
+          tabBarActiveTintColor: '#04B0A6',
+          tabBarInactiveTintColor: '#333333',
+          headerShown: false
+        })}
+        >
+          <Tab.Screen name="Home" component={HomeStackScreen}/>
           <Tab.Screen name="Create" component={()=><View><Text>{"Create"}</Text></View>} />
           <Tab.Screen name="Profile" component={()=><View><Text>{"Profile"}</Text></View>} />
         </Tab.Navigator>
