@@ -69,7 +69,7 @@ const HomeScreen = ({navigation}: any) => {
           borderRadius:4
         }}
         dotStyle={{
-          backgroundColor: "rgba(255,255,255,.2)",
+          backgroundColor: "rgba(255,255,255,.5)",
           width: 8,
           height: 8,
           marginLeft: 3,
@@ -82,9 +82,16 @@ const HomeScreen = ({navigation}: any) => {
             return(
               <View style={[styles.slide1,styles.container]}>
                 <Image 
-                style={{width:"100%",height:"100%",borderRadius:BORDER_RADIUS,
+                style={{width:"100%",height:"100%",borderRadius:BORDER_RADIUS, position:"relative",
                 overflow:"hidden"}}
                 source={{uri:"https://d3566jsyo19arr.cloudfront.net/banner/marco_mueller_banner.jpg"}}/>
+                <View style={{position:"absolute",top:0,left:0,width:"100%",height:"100%",backgroundColor:"rgba(0,0,0,.2)"}}></View>
+                <View style={{position:"absolute",backgroundColor:"transparent", top:"10%",left:15, height:"80%", width:"60%",  display:"flex", flexDirection:"column", alignContent:"space-around",
+              justifyContent:"space-evenly"}}>
+                  <Text style={{fontWeight:"bold",color:"#FFAE50"}}>{"NEW"}</Text>
+                  <Text style={{fontWeight:"bold",color:"white", fontSize:20}}>{"Fish Preparation like a start chef"}</Text>
+                  <Text style={{fontWeight:"300",color:"white"}}>{"With Rolf Fliegauf"}</Text>
+                </View>
               </View>
             )
           })}
