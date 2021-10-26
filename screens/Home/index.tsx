@@ -67,6 +67,7 @@ const HomeScreen = ({navigation}: any) => {
                     justifyContent: 'flex-start',
                     alignItems: 'center',
                     marginBottom: 20,
+                    marginTop: 20, 
                   },
                   styles.container,
                 ]}>
@@ -98,7 +99,7 @@ const HomeScreen = ({navigation}: any) => {
           );
         }}
         columnWrapperStyle={{justifyContent: 'space-between'}}
-        style={[{marginTop: 20, marginBottom:20, display: 'flex'}]}
+        style={[{marginBottom:20, display: 'flex'}]}
         data={getData().filter(d => d.category_id === activeFilter?.id)}
         renderItem={({item, index}) => (
           <TouchableOpacity

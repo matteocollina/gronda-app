@@ -111,7 +111,7 @@ function HomeTabs() {
   const heightTab = Dimensions.get("window").height * 0.1;
   const iconSize = 30
   const iconCreateSize = 40
-  console.log("heightTab",heightTab)
+  console.log("heightTab",heightTab,Dimensions.get("window").height)
   return(
       <Tab.Navigator 
         screenOptions={({ route }) => ({
@@ -136,7 +136,7 @@ function HomeTabs() {
           },
           tabBarStyle:{
               height:heightTab,
-              minHeight:70,
+              minHeight:100,
               maxHeight:100
           },
           tabBarActiveTintColor: PRIMARY_COLOR,
