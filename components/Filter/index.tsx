@@ -1,6 +1,7 @@
 import {FC} from 'react';
-import React, {useEffect} from 'react';
-import { Button, GestureResponderEvent, StyleProp, Text, TouchableOpacity, View, ViewStyle } from 'react-native';
+import React from 'react';
+import { GestureResponderEvent, StyleProp, Text, TouchableOpacity, View, ViewStyle } from 'react-native';
+import style from './style';
 
 interface IFilter {
   isActive?: boolean;
@@ -14,13 +15,8 @@ const Filter: FC<IFilter> = ({isActive, title, containerStyle, onPress}: IFilter
     <TouchableOpacity onPress={onPress} 
     
     style={[{
-        overflow: 'hidden',
         backgroundColor: isActive ? 'black' : 'white',
-        borderRadius: 20,
-        borderWidth: 1,
-        borderColor: 'black',
-        padding: 10,
-        },containerStyle]}>
+        },style.container,containerStyle]}>
         <View >
         <Text
         style={{fontWeight: 'bold',
