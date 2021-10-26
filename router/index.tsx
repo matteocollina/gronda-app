@@ -110,12 +110,22 @@ function HomeTabs() {
             } else if (route.name === 'Profile') {
               iconName = focused ? require('./../assets/images/profile-06.png') : require('./../assets/images/profile-06.png');
             }
-
-            return <Image style={{width:28,height:28, marginTop:5}} source={iconName}/>;
+            const _tintStyle = route.name === 'Create' ? {} : {tintColor: focused ? PRIMARY_COLOR : "#333333"}
+            return <View style={{marginTop:10}}>
+                <Image style={{width: route.name === 'Create' ? 40 : 30,
+                height: route.name === 'Create' ? 40 :30,
+                ..._tintStyle}} source={iconName}/>
+            </View>;
+          },
+          tabBarStyle:{
+              height:100
           },
           tabBarActiveTintColor: PRIMARY_COLOR,
           tabBarInactiveTintColor: '#333333',
           headerShown: false,
+          tabBarLabelStyle: {
+              fontSize:12, paddingTop: 10
+          }
         })}
         >
           <Tab.Screen name="Home" component={HomeStackScreen}/>
