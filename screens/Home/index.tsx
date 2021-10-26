@@ -13,7 +13,7 @@ import {getData} from '../../network/network';
 import {getRandomColor} from '../../utils';
 import FilterData from '../../model/Filter';
 import Filter from '../../components/Filter';
-import {BORDER_RADIUS} from '../../assets/consts';
+import {BORDER_RADIUS, SECONDARY_COLOR} from '../../assets/consts';
 import GCarousel from '../../components/Carousel';
 import ProgressiveFastImage from "@freakycoder/react-native-progressive-fast-image";
 
@@ -52,7 +52,8 @@ const HomeScreen = ({navigation}: any) => {
   });
 
   return (
-    <View style={{flex: 1}}>
+    <View style={{flex: 1, backgroundColor:"white", 
+    }}>
       <FlatList
         ListHeaderComponentStyle={{margin: 0}}
         ListHeaderComponent={() => {

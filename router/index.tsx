@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button, Image, Text, TouchableOpacity, View } from 'react-native';
+import { Button, Dimensions, Image, Text, TouchableOpacity, View } from 'react-native';
 import { NavigationContainer, useNavigationContainerRef } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -10,13 +10,17 @@ import store from './../redux/store';
 import CounterScreen from './../screens/Counter';
 import { actSetGeneral } from './../redux/actions';
 import { TGeneral } from './../redux/reducers';
-import { PRIMARY_COLOR } from '../assets/consts';
+import { PRIMARY_COLOR, SECONDARY_COLOR } from '../assets/consts';
 
 const homeOpts = (navigation:any) => {
   return({
+    headerShadowVisible: true,
+    headerTitleAlign: 'center',
+    headerStyle: {background:"transparent"
+  },
     headerTintColor: 'white',
-  headerStyle: { backgroundColor: 'transparent' },
-  headerTitle: (props:any) =>  <View style={{display:"flex",alignItems:"center", width:"70%"}}>
+  headerTitle: (props:any) =>  <View style={{display:"flex",
+  alignItems:"center", justifyContent:"center", width:"70%"}}>
     <Image 
   style={{width:"100%",height:40}}
   resizeMode={"contain"}
@@ -51,9 +55,12 @@ const homeOpts = (navigation:any) => {
 const detailsOpts = (navigation:any) =>  {
   return(
     {
+      headerShadowVisible: false,
+      headerBackVisible: false,
       headerTransparent:true,
-      headerStyle: { backgroundColor: 'transparent' },
-      headerTitle: (props:any) => <Text></Text>,
+      headerStyle: { backgroundColor: 'transparent',elevation: 0,
+      shadowOpacity: 0,borderTopWidth: 0 },
+      headerTitle: (props:any) => null,
       headerLeft: (props:any) => (
         <TouchableOpacity
       onPress={() => navigation.goBack()}
@@ -71,7 +78,11 @@ const detailsOpts = (navigation:any) =>  {
 const HomeStack = createNativeStackNavigator();
 function HomeStackScreen() {
   return (
-    <HomeStack.Navigator>
+    <HomeStack.Navigator defaultScreenOptions={{
+      headerStyle: {
+        backgroundColor: "transparent"
+      }
+    }}>
       <HomeStack.Screen name="Home" component={HomeScreen} options={({ navigation, route }) => ({
           ...homeOpts(navigation)
         })}
@@ -80,6 +91,7 @@ function HomeStackScreen() {
       ,{name:"Message",component:CounterScreen}].map((r:any)=>{
           return(
                 <HomeStack.Screen name={r.name} component={r.component} options={({ navigation, route }) => ({
+                  headerLargeTitleShadowVisible:false,
                 ...detailsOpts(navigation)
                 })}
             />
@@ -95,6 +107,8 @@ const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 function HomeTabs() {
     const dispatch = useDispatch();
+
+  const heightTab = Dimensions.get("window").height * 0.1;
   return(
       <Tab.Navigator 
         screenOptions={({ route }) => ({
@@ -110,21 +124,23 @@ function HomeTabs() {
             } else if (route.name === 'Profile') {
               iconName = focused ? require('./../assets/images/profile-06.png') : require('./../assets/images/profile-06.png');
             }
-            const _tintStyle = route.name === 'Create' ? {} : {tintColor: focused ? PRIMARY_COLOR : "#333333"}
-            return <View style={{marginTop:10}}>
-                <Image style={{width: route.name === 'Create' ? 40 : 30,
-                height: route.name === 'Create' ? 40 :30,
+            const _tintStyle = route.name === 'Create' ? {} : {tintColor: focused ? PRIMARY_COLOR : SECONDARY_COLOR}
+            return <View style={{marginTop:heightTab*.1}}>
+                <Image style={{width: route.name === 'Create' ? heightTab*.5 : heightTab*.35,
+                height: route.name === 'Create' ? heightTab*.5 : heightTab*.35,
                 ..._tintStyle}} source={iconName}/>
             </View>;
           },
           tabBarStyle:{
-              height:100
+              height:heightTab,
+              minHeight:45,
+              maxHeight:100
           },
           tabBarActiveTintColor: PRIMARY_COLOR,
           tabBarInactiveTintColor: '#333333',
           headerShown: false,
           tabBarLabelStyle: {
-              fontSize:12, paddingTop: 10
+              fontSize:12, paddingTop: heightTab*.1,paddingBottom: heightTab*.1,
           }
         })}
         >
@@ -158,8 +174,15 @@ function Router() {
         }}
       ref={navigationRef}
       >
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="Home" component={HomeTabs} />
+      <Stack.Navigator screenOptions={{ headerShown: false, headerStyle:{
+        backgroundColor:"transparent"
+      } }}>
+          <Stack.Screen name="Home" component={HomeTabs} options={{
+            headerShadowVisible: false,
+            headerStyle:{
+              backgroundColor:"transparent",
+            }
+          }} />
         </Stack.Navigator>
       </NavigationContainer>
   );
