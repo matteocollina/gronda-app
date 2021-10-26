@@ -108,7 +108,8 @@ const Tab = createBottomTabNavigator();
 function HomeTabs() {
     const dispatch = useDispatch();
 
-  const heightTab = Dimensions.get("window").height * 0.1;
+  const heightScreen = Dimensions.get("window").height;
+  const heightTab = heightScreen > 600 ? heightScreen * 0.15 : heightScreen*0.1;
   const iconSize = 30
   const iconCreateSize = 40
   console.log("heightTab",heightTab,Dimensions.get("window").height)
@@ -136,7 +137,7 @@ function HomeTabs() {
           },
           tabBarStyle:{
               height:heightTab,
-              minHeight:100,
+              minHeight:70,
               maxHeight:100
           },
           tabBarActiveTintColor: PRIMARY_COLOR,
