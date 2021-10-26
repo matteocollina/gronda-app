@@ -16,6 +16,9 @@ const DetailsScreen = ({route, navigation}:{route: IDetailsScreen,navigation: an
   return (
       <View style={{ display:"flex",flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <View style={{flex:1,width:"100%",backgroundColor:PRIMARY_COLOR,justifyContent: 'center', alignItems: 'center'}}>
+          <Image source={require("./../../assets/images/gronda_web_logo_medium_caribbean.png")}
+          style={{position:"absolute", maxWidth:"20%", height:"100%", tintColor:"rgba(255,255,255,0.3)"}}
+          resizeMode={"contain"}/>
           <Animated.Image source={{uri:item.img_url}}
           onLoadEnd={()=>{
             Animated.timing(opacity, {
@@ -25,6 +28,8 @@ const DetailsScreen = ({route, navigation}:{route: IDetailsScreen,navigation: an
             }).start();
           }}
                 style={[{width:"100%",height:"100%"},{opacity:opacity}]}/>
+
+            
         </View>
         <View style={{flex:1, display:"flex", alignItems:"flex-start", width:"100%"}}>
           <Text style={{marginTop:30, fontWeight:"bold", fontSize:20, marginLeft:20}}>{route.params.item.title}</Text>

@@ -15,6 +15,7 @@ import FilterData from '../../model/Filter';
 import Filter from '../../components/Filter';
 import {BORDER_RADIUS} from '../../assets/consts';
 import GCarousel from '../../components/Carousel';
+import ProgressiveFastImage from "@freakycoder/react-native-progressive-fast-image";
 
 const HomeScreen = ({navigation}: any) => {
   const FILTERS: FilterData[] = [
@@ -111,7 +112,7 @@ const HomeScreen = ({navigation}: any) => {
             key={index}
             onPress={() => navigation.navigate('Details', {item: item})}>
             <View>
-              <Image
+              {/* <Image
                 source={{uri: item.img_url}}
                 style={{
                   width: '100%',
@@ -119,7 +120,18 @@ const HomeScreen = ({navigation}: any) => {
                   borderRadius: BORDER_RADIUS,
                   overflow: 'hidden',
                 }}
+              /> */}
+              <ProgressiveFastImage
+                source={{uri:item.img_url}}
+                thumbnailSource={require("./../../assets/images/gronda_web_logo_medium_caribbean.png")}
+                style={{
+                  width: '100%',
+                  height: '75%',
+                  borderRadius: BORDER_RADIUS,
+                  overflow: 'hidden',
+                }}
               />
+
               <View>
                 <Text style={{fontSize: 16, fontWeight: '600', marginTop: 8}}>
                   {item.title}

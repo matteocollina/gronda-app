@@ -10,6 +10,7 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
+    "@freakycoder/react-native-progressive-fast-image": "^0.2.5",
     "@ja-ka/react-native-fade-in-flatlist": "^1.0.7",
     "@react-navigation/bottom-tabs": "^6.0.9",
     "@react-navigation/native": "^6.0.6",
