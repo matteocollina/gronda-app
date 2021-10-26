@@ -54,13 +54,7 @@ const homeOpts = (navigation:any) => {
 }
 const detailsOpts = (navigation:any) =>  {
   return(
-    {
-      headerShadowVisible: false,
-      headerBackVisible: false,
-      headerTransparent:true,
-      headerStyle: { backgroundColor: 'transparent',elevation: 0,
-      shadowOpacity: 0,borderTopWidth: 0 },
-      headerTitle: (props:any) => null,
+    {      
       headerLeft: (props:any) => (
         <TouchableOpacity
       onPress={() => navigation.goBack()}
@@ -71,6 +65,13 @@ const detailsOpts = (navigation:any) =>  {
        height={45} width={45}/>
        </TouchableOpacity>
       ),
+      headerTintColor:"transparent",
+      headerTitle:"",
+      headerShadowVisible: false,
+      headerTransparent:true,
+      headerStyle: { backgroundColor: 'transparent',elevation: 0,
+      shadowOpacity: 0,borderTopWidth: 0 },
+      headerBackTitle:"",
     }
   )
 }
@@ -91,8 +92,7 @@ function HomeStackScreen() {
       ,{name:"Message",component:CounterScreen}].map((r:any)=>{
           return(
                 <HomeStack.Screen name={r.name} component={r.component} options={({ navigation, route }) => ({
-                  headerLargeTitleShadowVisible:false,
-                ...detailsOpts(navigation)
+                  ...detailsOpts(navigation),
                 })}
             />
           )
@@ -109,6 +109,9 @@ function HomeTabs() {
     const dispatch = useDispatch();
 
   const heightTab = Dimensions.get("window").height * 0.1;
+  const iconSize = 30
+  const iconCreateSize = 40
+  console.log("heightTab",heightTab)
   return(
       <Tab.Navigator 
         screenOptions={({ route }) => ({
@@ -125,22 +128,22 @@ function HomeTabs() {
               iconName = focused ? require('./../assets/images/profile-06.png') : require('./../assets/images/profile-06.png');
             }
             const _tintStyle = route.name === 'Create' ? {} : {tintColor: focused ? PRIMARY_COLOR : SECONDARY_COLOR}
-            return <View style={{marginTop:heightTab*.1}}>
-                <Image style={{width: route.name === 'Create' ? heightTab*.5 : heightTab*.35,
-                height: route.name === 'Create' ? heightTab*.5 : heightTab*.35,
+            return <View style={{marginTop:15}}>
+                <Image style={{width: route.name === 'Create' ? iconCreateSize : iconSize,
+                height: route.name === 'Create' ? iconCreateSize : iconSize,
                 ..._tintStyle}} source={iconName}/>
             </View>;
           },
           tabBarStyle:{
               height:heightTab,
-              minHeight:45,
+              minHeight:70,
               maxHeight:100
           },
           tabBarActiveTintColor: PRIMARY_COLOR,
-          tabBarInactiveTintColor: '#333333',
+          tabBarInactiveTintColor: SECONDARY_COLOR,
           headerShown: false,
           tabBarLabelStyle: {
-              fontSize:12, paddingTop: heightTab*.1,paddingBottom: heightTab*.1,
+              fontSize:12, paddingTop: 15,paddingBottom: 5,
           }
         })}
         >
@@ -162,6 +165,7 @@ function Router() {
 
   return (
       <NavigationContainer
+      
         onStateChange={(state) => {
           const route = navigationRef.current?.getCurrentRoute();
           const currentScreen: string = route!.name;
@@ -174,15 +178,8 @@ function Router() {
         }}
       ref={navigationRef}
       >
-      <Stack.Navigator screenOptions={{ headerShown: false, headerStyle:{
-        backgroundColor:"transparent"
-      } }}>
-          <Stack.Screen name="Home" component={HomeTabs} options={{
-            headerShadowVisible: false,
-            headerStyle:{
-              backgroundColor:"transparent",
-            }
-          }} />
+      <Stack.Navigator screenOptions={{ headerShown: false}}>
+          <Stack.Screen name="Home" component={HomeTabs} />
         </Stack.Navigator>
       </NavigationContainer>
   );

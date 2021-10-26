@@ -98,13 +98,14 @@ const HomeScreen = ({navigation}: any) => {
           );
         }}
         columnWrapperStyle={{justifyContent: 'space-between'}}
-        style={[{marginTop: 20, display: 'flex'}]}
+        style={[{marginTop: 20, marginBottom:20, display: 'flex'}]}
         data={getData().filter(d => d.category_id === activeFilter?.id)}
         renderItem={({item, index}) => (
           <TouchableOpacity
             style={[
               styles.itemContainer,
               {
+                marginBottom:40,
                 marginRight: index % 2 !== 0 ? MARGIN : 0,
                 marginLeft: index % 2 === 0 ? MARGIN : 0,
               },
@@ -112,28 +113,21 @@ const HomeScreen = ({navigation}: any) => {
             activeOpacity={0.9}
             key={index}
             onPress={() => navigation.navigate('Details', {item: item})}>
-            <View>
-              {/* <Image
-                source={{uri: item.img_url}}
-                style={{
-                  width: '100%',
-                  height: '75%',
-                  borderRadius: BORDER_RADIUS,
-                  overflow: 'hidden',
-                }}
-              /> */}
-              <ProgressiveFastImage
-                source={{uri:item.img_url}}
-                thumbnailSource={require("./../../assets/images/gronda_web_logo_medium_caribbean.png")}
-                style={{
-                  width: '100%',
-                  height: '75%',
-                  borderRadius: BORDER_RADIUS,
-                  overflow: 'hidden',
-                }}
-              />
+            <View style={{display:"flex", flex:1}}>
+              <View style={{display:"flex",justifyContent:"center"}}>
+                <ProgressiveFastImage
+                  source={{uri:item.img_url}}
+                  thumbnailSource={require("./../../assets/images/gronda_web_logo_medium_caribbean.png")}
+                  style={{
+                    width: '100%',
+                    height: 200,
+                    borderRadius: BORDER_RADIUS,
+                    overflow: 'hidden',
+                  }}
+                />
+              </View>
 
-              <View>
+              <View style={{display:"flex"}}>
                 <Text style={{fontSize: 16, fontWeight: '600', marginTop: 8}}>
                   {item.title}
                 </Text>
