@@ -10,6 +10,7 @@ import store from './../redux/store';
 import CounterScreen from './../screens/Counter';
 import { actSetGeneral } from './../redux/actions';
 import { TGeneral } from './../redux/reducers';
+import { PRIMARY_COLOR } from '../assets/consts';
 
 const homeOpts = (navigation:any) => {
   return({
@@ -112,7 +113,7 @@ function HomeTabs() {
 
             return <Image style={{width:28,height:28, marginTop:5}} source={iconName}/>;
           },
-          tabBarActiveTintColor: '#04B0A6',
+          tabBarActiveTintColor: PRIMARY_COLOR,
           tabBarInactiveTintColor: '#333333',
           headerShown: false,
         })}
