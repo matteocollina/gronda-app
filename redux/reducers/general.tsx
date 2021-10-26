@@ -1,10 +1,10 @@
 import Action, { ActionTypes } from "../actionTypes";
 
 export type TGeneralStoreState = {
-    loginTryCount?: number;
+    countMap?: Map<string,number>;
 }
 const initialState: TGeneralStoreState = {
-    loginTryCount: 0
+  countMap: new Map()
 };
 
 

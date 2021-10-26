@@ -6,6 +6,7 @@ import {
   Image,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
 } from 'react-native';
 import {getData} from '../../network/network';
@@ -14,7 +15,7 @@ import { getRandomColor } from '../../utils';
 import FilterData from '../../model/Filter';
 import Filter from '../../components/Filter';
 
-const HomeScreen = ({navigation}: any) => {
+const HomeScreen = ({navigation}:any) => {
   const FILTERS: FilterData[] = [new FilterData(1,"Creations"),new FilterData(2,"MasterClasses"),new FilterData(3,"Jobs"),]
   const [activeFilter, setActiveFilter] = useState<FilterData>(FILTERS[0]);
 
@@ -105,16 +106,20 @@ const HomeScreen = ({navigation}: any) => {
         style={{marginTop:20,display:"flex"}}
           data={getData().filter(d => d.category_id===activeFilter?.id)}
           renderItem={({item, index}) => (
-            <View style={[styles.itemContainer]}>
-              <Image source={{uri:item.img_url}}
-              style={{width:"100%",height:"75%",borderRadius:BORDER_RADIUS,
-              overflow:"hidden"}}/>
-              <View>
-                <Text style={{fontSize:16,fontWeight:"600", marginTop:8}}>{item.title}</Text>
-                <Text style={{fontSize:14,marginTop:10}}>{"Story Author"}</Text>
+            <TouchableOpacity style={[styles.itemContainer]} 
+            activeOpacity={.9}
+            key={index} onPress={()=>navigation.navigate("Details",{item: item})}>
+              <View >
+                <Image source={{uri:item.img_url}}
+                style={{width:"100%",height:"75%",borderRadius:BORDER_RADIUS,
+                overflow:"hidden"}}/>
+                <View>
+                  <Text style={{fontSize:16,fontWeight:"600", marginTop:8}}>{item.title}</Text>
+                  <Text style={{fontSize:14,marginTop:10}}>{"Story Author"}</Text>
+                </View>
+                
               </View>
-              
-            </View>
+            </TouchableOpacity>
           )}
           keyExtractor={item => `${item.id}`}
           numColumns={numColumns}
