@@ -110,7 +110,7 @@ function HomeTabs() {
               iconName = focused ? require('./../assets/images/profile-06.png') : require('./../assets/images/profile-06.png');
             }
 
-            return <Image style={{width:25,height:25}} source={iconName}/>;
+            return <Image style={{width:28,height:28, marginTop:5}} source={iconName}/>;
           },
           tabBarActiveTintColor: '#04B0A6',
           tabBarInactiveTintColor: '#333333',

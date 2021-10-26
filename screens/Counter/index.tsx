@@ -36,7 +36,7 @@ const CounterScreen = () => {
         }}>
         {count}
       </Text>
-      <Text style={{fontSize: 20, color: 'white'}}>{`Visit${
+      <Text style={{fontSize: 20, color: 'white',fontWeight: '700',}}>{`Visit${
         count !== undefined ? (count > 1 ? 's' : '') : ''
       }`}</Text>
     </View>
