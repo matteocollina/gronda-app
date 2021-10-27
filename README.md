@@ -9,7 +9,7 @@ $ npm install
 $ cd ios && pod install
 `
 
-### 2a - How to run iOS app
+### 1a - How to run iOS app
 `
 $ npm start
 `\
@@ -17,12 +17,17 @@ $ npm start
 $ npx react-native run-ios
 `
 
-### 2b - How to run Android app
+### 1b - How to run Android app
 `
 $ npm start
 `\
 `
 $ npx react-native run-android
+`
+
+## 2 - How to run tests
+`
+$ npm run test
 `
 
 ### How to improve the app
