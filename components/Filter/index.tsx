@@ -8,12 +8,13 @@ interface IFilter {
   title: string;
   containerStyle?: StyleProp<ViewStyle>;
   onPress: (event: GestureResponderEvent) => void;
+  testId?: string;
 }
 
-const Filter: FC<IFilter> = ({isActive, title, containerStyle, onPress}: IFilter) => {
+const Filter: FC<IFilter> = ({isActive, title, containerStyle, onPress, testId}: IFilter) => {
   return (
     <TouchableOpacity onPress={onPress} 
-    
+    testID={testId}
     style={[{
         backgroundColor: isActive ? 'black' : 'white',
         },style.container,containerStyle]}>
